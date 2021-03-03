@@ -7,19 +7,9 @@ rm(list = ls())
 # Chargement du RData produit par le script de collecte : 
 # https://gitlab.com/dreal-datalab/enr_reseaux_teo/-/blob/master/collecte/indicateurs.Rmd
 load("old/app/data_appli.RData")
-data_name <- ls()
 
-# data_list <- lapply(X = data_name, FUN = get) %>% 
-#   set_names(data_name)
-# lapply(X = data_list, FUN = usethis::use_data, overwrite = TRUE) 
-# 
-# purrr:: map(.x = data_name, .f = ~ usethis::use_data(get(.x), overwrite = TRUE))
-# 
-# for (x in data_list) {
-#   usethis::use_data(x, overwrite = TRUE)
-# }
-# paste0("usethis::use_data(", data_name, ", overwrite = TRUE)  ", collapse = " ")
-  
+# remove non ascii character in carto_iris
+carto_iris <- st_transform(carto_iris, 2154)
 
 usethis::use_data(carto_com, overwrite = TRUE)
 usethis::use_data(carto_dep, overwrite = TRUE)
@@ -47,5 +37,7 @@ usethis::use_data(obj_reg, overwrite = TRUE)
 usethis::use_data(reg, overwrite = TRUE)
 usethis::use_data(typo_registre, overwrite = TRUE)
 
+
+data_name <- ls()
 purrr::map(.x = data_name, .f = ~ utilitaires.ju::use_data_doc(name = .x, source = "DREAL PdL - TEO"))
 

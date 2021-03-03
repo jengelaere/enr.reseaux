@@ -15,7 +15,11 @@
 
 ## Dependencies ----
 ## Add one line by package you want to add as dependency
-usethis::use_package( "thinkr" )
+usethis::use_pipe()
+usethis::use_package("rlang")
+usethis::use_package("htmlwidgets")
+usethis::use_package("ggplot2")
+usethis::use_package("ggiraph")
 
 ## Add modules ----
 ## Create a module infrastructure in R/
@@ -27,15 +31,25 @@ golem::add_module( name = "name_of_module2" ) # Name of the module
 golem::add_fct( "helpers" ) 
 golem::add_utils( "helpers" )
 
+## Add metier function
+golem::add_fct( "ggteo" ) 
+usethis::use_test( "ggteo" )
+golem::add_fct( "girafeTEO" ) 
+usethis::use_test( "girafeTEO" )
+
+
 ## External resources
 ## Creates .js and .css files at inst/app/www
 golem::add_js_file( "script" )
 golem::add_js_handler( "handlers" )
-golem::add_css_file( "custom" )
+golem::add_css_file( "style.css" )
 
 ## Add internal datasets ----
 ## If you have data in your package
-usethis::use_data_raw( name = "my_dataset", open = FALSE ) 
+usethis::use_data_raw( name = "indicateurs.RData", open = FALSE ) 
+usethis::use_data_raw( name = "themes_ggplot", open = TRUE ) 
+usethis::use_data_raw( name = "couleurs", open = TRUE ) 
+
 
 ## Tests ----
 ## Add one line by test you want to create

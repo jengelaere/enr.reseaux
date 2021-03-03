@@ -2,14 +2,31 @@ Package: enr.reseaux
 Title: EnR de reseaux en Pays de la Loire - TEO
 Version: 0.0.0.9000
 Authors@R: person('Juliette', 'ENGELAERE-LEFEBVRE', email = 'juliette.engelaere@developpement-durable.gouv.fr', role = c('cre', 'aut'))
-Description: Visualisation territoriale d'indicateurs sur l'electricite renouvelable et le biomethane produits en Pays de la Loire.
-License: LO/OL v2 + file LICENSE
+Description: Visualisation territoriale d'indicateurs sur l'electricite renouvelable et le biomethane produits en Pays de la Loire. Les données diffusées sont publiées sous licence etalab v2. 
+License: GPL (>= 3)
 Imports: 
     config (>= 0.3.1),
     golem (>= 0.3.0),
-    shiny (>= 1.6.0)
+    shiny (>= 1.6.0),
+    processx,
+    attempt,
+    DT,
+    glue,
+    htmltools,
+    magrittr,
+    rlang,
+    htmlwidgets,
+    ggplot2,
+    ggiraph
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.1
 URL: https://gitlab.com/dreal-datalab/enr_reseaux_teo
 BugReports: https://gitlab.com/dreal-datalab/enr_reseaux_teo/issues
+Suggests: 
+    testthat (>= 3.0.0),
+    spelling
+Config/testthat/edition: 3
+Language: fr-FR
+Depends: 
+    R (>= 2.10)
