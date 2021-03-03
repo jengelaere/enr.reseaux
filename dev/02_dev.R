@@ -20,6 +20,10 @@ usethis::use_package("rlang")
 usethis::use_package("htmlwidgets")
 usethis::use_package("ggplot2")
 usethis::use_package("ggiraph")
+usethis::use_package("dplyr")
+usethis::use_package("forcats")
+usethis::use_package("lubridate")
+usethis::use_package("ggthemes")
 
 ## Add modules ----
 ## Create a module infrastructure in R/
@@ -36,6 +40,11 @@ golem::add_fct( "ggteo" )
 usethis::use_test( "ggteo" )
 golem::add_fct( "girafeTEO" ) 
 usethis::use_test( "girafeTEO" )
+golem::add_fct( "graph_evol" ) 
+usethis::use_test( "graph_evol" )
+
+golem::add_fct( "" ) 
+usethis::use_test( "" )
 
 
 ## External resources
