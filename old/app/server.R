@@ -212,12 +212,12 @@ shinyServer(function(session, input, output) {
   
   user.created.map <- reactive({
     req(input$mon_ter)
-    carte_PV <- couche_fil_legend("pvq", input$mon_ter, 6)
-    carte_bois <- couche_fil_legend("bois", input$mon_ter, 1)
-    carte_dechet <- couche_fil_legend("dechet", input$mon_ter, 2)
-    carte_hydro <- couche_fil_legend("hydro", input$mon_ter, 3)
-    carte_metha <- couche_fil_legend("metha", input$mon_ter, 4)
-    carte_eol <- couche_fil_legend("eol", input$mon_ter, 5)
+    carte_PV <- couche_fil("pvq", input$mon_ter, 6, TRUE)
+    carte_bois <- couche_fil("bois", input$mon_ter, 1, TRUE)
+    carte_dechet <- couche_fil("dechet", input$mon_ter, 2, TRUE)
+    carte_hydro <- couche_fil("hydro", input$mon_ter, 3, TRUE)
+    carte_metha <- couche_fil("metha", input$mon_ter, 4, TRUE)
+    carte_eol <- couche_fil("eol", input$mon_ter, 5, TRUE)
     tag.map.title <- tags$style(HTML("
   .leaflet-control.map-title {
     transform: translate(-50%,20%);
@@ -379,20 +379,14 @@ shinyServer(function(session, input, output) {
 
   output$carto_eol <- renderLeaflet({
     req(input$mon_ter)
-    if(nb_instal("eol_ter", input$mon_ter)>0) {
-      # ma_carte <- mes_instal("eol_ter", input$mon_ter)
-      # carte_eol <- mapview(ma_carte, zcol="typo", legend=FALSE, col.regions=col_registre[[5]],
-      #                      cex="puiss_MW", alpha = 0, map.types = c("CartoDB.Positron"), homebutton=FALSE,
-      #                      label=paste0(ma_carte$nominstallation, " : ", ma_carte$puiss_MW, " MW"))
-      carte_eol <- couche_fil("eol",input$mon_ter, 5)
-      } else {carte_eol <- NULL}
-      (contours() + carte_eol)@map %>%
+    carte_eol <- couche_fil("eol",input$mon_ter, 5)
+    (contours() + carte_eol)@map %>%
       addFullscreenControl()
-    })
+  })
 
   user.created.map_eol <- reactive({
     req(input$mon_ter)
-    carte_eol <- couche_fil_legend("eol", input$mon_ter, 5)
+    carte_eol <- couche_fil("eol", input$mon_ter, 5, TRUE)
     tag.map.title <- tags$style(HTML("
   .leaflet-control.map-title {
     transform: translate(-50%,20%);
@@ -511,20 +505,14 @@ shinyServer(function(session, input, output) {
 
   output$carto_PV <- renderLeaflet({
     req(input$mon_ter)
-    if(nb_instal("pvq",input$mon_ter )>0) {
-      # ma_carte <- mes_instal("pvq", input$mon_ter)
-      # carte_PV <- mapview(ma_carte, zcol="typo", legend=FALSE, col.regions=col_registre[[6]],
-      #         cex="puiss_MW", alpha = 0, map.types = c("CartoDB.Positron"), homebutton = FALSE,
-      #         label=paste0(ma_carte$nominstallation, " : ", ma_carte$puiss_MW, " MW"))
-      carte_PV <- couche_fil("pvq",input$mon_ter, 6)
-    } else {carte_PV <- NULL}
-      (contours() + carte_PV)@map %>%
+    carte_PV <- couche_fil("pvq",input$mon_ter, 6)
+    (contours() + carte_PV)@map %>%
       addFullscreenControl()
   })
 
   user.created.map_pvq <- reactive({
     req(input$mon_ter)
-    carte_pvq <- couche_fil_legend("pvq", input$mon_ter, 6)
+    carte_pvq <- couche_fil("pvq", input$mon_ter, 6, TRUE)
     tag.map.title <- tags$style(HTML("
   .leaflet-control.map-title {
     transform: translate(-50%,20%);
@@ -639,9 +627,7 @@ shinyServer(function(session, input, output) {
 
   output$carto_hydro <- renderLeaflet({
     req(input$mon_ter)
-    if(nb_instal("hydro", input$mon_ter)>0) {
-      carte_hydro <- couche_fil("hydro",input$mon_ter, 3)
-    } else {carte_hydro <- NULL}
+    carte_hydro <- couche_fil("hydro",input$mon_ter, 3)
     (contours() + carte_hydro)@map %>%
       addFullscreenControl()
 
@@ -649,7 +635,7 @@ shinyServer(function(session, input, output) {
 
   user.created.map_hydro <- reactive({
     req(input$mon_ter)
-    carte_hydro <- couche_fil_legend("hydro", input$mon_ter, 3)
+    carte_hydro <- couche_fil("hydro", input$mon_ter, 3, TRUE)
     tag.map.title <- tags$style(HTML("
   .leaflet-control.map-title {
     transform: translate(-50%,20%);
@@ -789,9 +775,9 @@ shinyServer(function(session, input, output) {
 
   user.created.map_bio <- reactive({
     req(input$mon_ter)
-    carte_bois <- couche_fil_legend("bois",input$mon_ter, 1)
-    carte_dechet<-couche_fil_legend("dechet",input$mon_ter, 2)
-    carte_metha<-couche_fil_legend("metha",input$mon_ter, 4)
+    carte_bois <- couche_fil("bois",input$mon_ter, 1, TRUE)
+    carte_dechet<-couche_fil("dechet",input$mon_ter, 2, TRUE)
+    carte_metha<-couche_fil("metha",input$mon_ter, 4, TRUE)
     # carte_bio <- carte_bois + carte_dechet + carte_metha
     tag.map.title <- tags$style(HTML("
   .leaflet-control.map-title {

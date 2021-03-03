@@ -24,6 +24,23 @@ usethis::use_package("dplyr")
 usethis::use_package("forcats")
 usethis::use_package("lubridate")
 usethis::use_package("ggthemes")
+usethis::use_package("sf")
+usethis::use_package("mapview")
+usethis::use_package("leafpop")
+usethis::use_package()
+usethis::use_package()
+usethis::use_package()
+usethis::use_package()
+usethis::use_package()
+usethis::use_package()
+usethis::use_package()
+usethis::use_package()
+usethis::use_package()
+usethis::use_package()
+usethis::use_package()
+usethis::use_package()
+usethis::use_package()
+usethis::use_package()
 
 ## Add modules ----
 ## Create a module infrastructure in R/
@@ -35,13 +52,15 @@ golem::add_module( name = "name_of_module2" ) # Name of the module
 golem::add_fct( "helpers" ) 
 golem::add_utils( "helpers" )
 
-## Add metier function
+## Add metier functions
 golem::add_fct( "ggteo" ) 
 usethis::use_test( "ggteo" )
 golem::add_fct( "girafeTEO" ) 
 usethis::use_test( "girafeTEO" )
 golem::add_fct( "graph_evol" ) 
 usethis::use_test( "graph_evol" )
+golem::add_fct( "cartes_inst_elec" ) 
+usethis::use_test( "cartes_inst_elec" )
 
 golem::add_fct( "" ) 
 usethis::use_test( "" )
