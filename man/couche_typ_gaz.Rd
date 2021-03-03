@@ -2,7 +2,7 @@
 % Please edit documentation in R/fct_couche_typ_gaz.R
 \name{couche_typ_gaz}
 \alias{couche_typ_gaz}
-\title{Carte mapview d'es'un type d'installation biomethane du territoire selectionne}
+\title{Carte mapview d'un type d'installations biomethane du territoire selectionne}
 \usage{
 couche_typ_gaz(typ, code_ter, col = 1, leg = FALSE)
 }
@@ -19,7 +19,7 @@ couche_typ_gaz(typ, code_ter, col = 1, leg = FALSE)
 une carte mapview
 }
 \description{
-Carte mapview d'es'un type d'installation biomethane du territoire selectionne
+Carte mapview d'un type d'installations biomethane du territoire selectionne
 }
 \examples{
 couche_typ_gaz(typ = "Agricole", code_ter = "52", col = 4)

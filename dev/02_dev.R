@@ -27,7 +27,7 @@ usethis::use_package("ggthemes")
 usethis::use_package("sf")
 usethis::use_package("mapview")
 usethis::use_package("leafpop")
-usethis::use_package()
+usethis::use_package("shinydashboard")
 usethis::use_package()
 usethis::use_package()
 usethis::use_package()
@@ -44,8 +44,30 @@ usethis::use_package()
 
 ## Add modules ----
 ## Create a module infrastructure in R/
-golem::add_module( name = "name_of_module1" ) # Name of the module
-golem::add_module( name = "name_of_module2" ) # Name of the module
+golem::add_module( name = "selection" ) # Name of the module
+golem::add_module( name = "electr" )# Name of the module
+golem::add_module( name = "eol" )
+golem::add_module( name = "pv" )
+golem::add_module( name = "hydro" )
+golem::add_module( name = "bio" )
+golem::add_module( name = "biogaz" )
+golem::add_module( name = "tel" )
+golem::add_module( name = "about" )
+golem::add_module( name = "" )
+golem::add_module( name = "" )
+golem::add_module( name = "" )
+golem::add_module( name = "" )
+golem::add_module( name = "" )
+golem::add_module( name = "" )
+golem::add_module( name = "" )
+golem::add_module( name = "" )
+golem::add_module( name = "" )
+golem::add_module( name = "" )
+golem::add_module( name = "" )
+golem::add_module( name = "" )
+golem::add_module( name = "" )
+
+
 
 ## Add helper functions ----
 ## Creates ftc_* and utils_*
