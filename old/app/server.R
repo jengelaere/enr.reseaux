@@ -903,12 +903,12 @@ shinyServer(function(session, input, output) {
 
   user.created.map_inst_gaz <- reactive({
     req(input$mon_ter)
-    carte_agri <- couche_typ_gaz_legend(typ="Agricole", code_ter=input$mon_ter, col = 4)
-    carte_dechet <- couche_typ_gaz_legend("Déchets ménagers", input$mon_ter, 1)
-    carte_indust <- couche_typ_gaz_legend("Industriel", input$mon_ter, 6)
-    carte_isdnd <- couche_typ_gaz_legend("ISDND", input$mon_ter, 2)
-    carte_step <- couche_typ_gaz_legend("Station d'épuration", input$mon_ter, 3)
-    carte_terri <- couche_typ_gaz_legend("Territorial", input$mon_ter, 5)
+    carte_agri <- couche_typ_gaz(typ="Agricole", code_ter=input$mon_ter, col = 4, TRUE)
+    carte_dechet <- couche_typ_gaz("Déchets ménagers", input$mon_ter, 1, TRUE)
+    carte_indust <- couche_typ_gaz("Industriel", input$mon_ter, 6, TRUE)
+    carte_isdnd <- couche_typ_gaz("ISDND", input$mon_ter, 2, TRUE)
+    carte_step <- couche_typ_gaz("Station d'épuration", input$mon_ter, 3, TRUE)
+    carte_terri <- couche_typ_gaz("Territorial", input$mon_ter, 5, TRUE)
     tag.map.title <- tags$style(HTML("
   .leaflet-control.map-title {
     transform: translate(-50%,20%);

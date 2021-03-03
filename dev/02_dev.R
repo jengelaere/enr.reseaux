@@ -61,6 +61,8 @@ golem::add_fct( "graph_evol" )
 usethis::use_test( "graph_evol" )
 golem::add_fct( "cartes_inst_elec" ) 
 usethis::use_test( "cartes_inst_elec" )
+golem::add_fct( "couche_typ_gaz" ) 
+usethis::use_test( "couche_typ_gaz" )
 
 golem::add_fct( "" ) 
 usethis::use_test( "" )

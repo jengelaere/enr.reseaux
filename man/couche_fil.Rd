@@ -7,11 +7,13 @@
 couche_fil(fil, code_ter, col, leg = FALSE)
 }
 \arguments{
-\item{fil}{un motif de texte a retrouver dans le code typo des installations electrique}
+\item{fil}{un motif de texte a retrouver dans le code typo des installations electrique qui permet d'identifier un unique type}
 
 \item{code_ter}{le code geo du territoire a visualiser, au format texte}
 
 \item{col}{un entier entre 1 et 6 qui designe la filiere dans la palette col_registre}
+
+\item{leg}{un boleen pour afficher ou non la legende de la carte, FALSE par defaut}
 }
 \value{
 une carte mapview

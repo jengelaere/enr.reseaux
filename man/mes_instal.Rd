@@ -7,7 +7,7 @@
 mes_instal(fil, code_ter, typ_exclus = "xxxxxxxxx")
 }
 \arguments{
-\item{fil}{un motif de texte a retrouver dans le code typo des installations electrique}
+\item{fil}{un motif de texte a retrouver dans le code typo des installations electrique qui permet d'identifier une unique filiere}
 
 \item{code_ter}{le code geo du territoire a visualiser, au format texte}
 

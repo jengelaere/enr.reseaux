@@ -2,6 +2,7 @@
 
 export("%>%")
 export(couche_fil)
+export(couche_typ_gaz)
 export(ggteo)
 export(girafeTEO)
 export(graph_evol)
