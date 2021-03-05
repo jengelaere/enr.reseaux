@@ -1,6 +1,6 @@
 #' electr UI Function
 #'
-#' @description A shiny Module.
+#' @description Onglet toute filiere electrique.
 #'
 #' @param id,input,output,session Internal parameters for {shiny}.
 #'

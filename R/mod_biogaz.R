@@ -12,8 +12,8 @@ mod_biogaz_ui <- function(id){
   tagList(
     
     mod_entete_ui(ns("entete_ui_1")), # en tete
-    
     mod_l1_gaz_elec_ui(ns("l1_gaz_elec_ui_1")), #1ere ligne
+    mod_l2_gaz_ui(ns("l2_gaz_ui_1"))
 
  
   )
@@ -51,8 +51,8 @@ mod_biogaz_server <- function(id, r){
       }) 
     
     mod_entete_server("entete_ui_1", r, obj_page)
-    
     mod_l1_gaz_elec_server("l1_gaz_elec_ui_1", r, obj_page)
+    mod_l2_gaz_server("l2_gaz_ui_1", r)
  
   })
 }
