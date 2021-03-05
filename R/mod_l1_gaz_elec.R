@@ -1,6 +1,6 @@
 #' l1_gaz_elec UI Function
 #'
-#' @description A shiny Module.
+#' @description 1ere ligne des pages toutes filieres elect et biomgaz, comprenant 3 boites de valeurs
 #'
 #' @param id,input,output,session Internal parameters for {shiny}.
 #'

@@ -15,23 +15,8 @@ mod_electr_ui <- function(id){
     
     mod_l1_gaz_elec_ui(ns("l1_gaz_elec_ui_1")), #1ere ligne
     
-    
-    # fluidRow(   #2e ligne
-    #   
-    #   box(status="primary", solidHeader = TRUE, width=6,
-    #       title = span("R\u00e9partition des puissances install\u00e9es", style="color:white"),
-    #       girafeOutput(ns("pie_MW"),  width="100%", height = 370) %>% withSpinner(type=4),
-    #       style="color:black",
-    #       span(paste0("au 31/12/", mil, " - Source : Registre"), style="font-size: 12px")
-    #   ),
-    #   
-    #   box(status="primary", solidHeader = TRUE, width=6,
-    #       title = span("R\u00e9partition de la production EnR&R", style="color:white"),
-    #       girafeOutput(ns("pie_MWh"),  width="100%", height = 370),
-    #       style="color:black",
-    #       span(paste0("GWh produits en ", mil, " - Source : ENEDIS"), style="font-size: 12px")
-    #   )
-    # ),
+    mod_l2_elec_ui(ns("l2_elec_ui_1")), # 2e ligne
+
     # 
     # fluidRow(   #3e ligne
     #   
@@ -91,7 +76,9 @@ mod_electr_server <- function(id, r){
     
     mod_entete_server("entete_ui_1", r, obj_page)
     
-    mod_l1_gaz_elec_server("l1_gaz_elec_ui_1", r, obj_page)
+    mod_l1_gaz_elec_server("l1_gaz_elec_ui_1", r, obj_page) #1ere ligne
+    
+    mod_l2_elec_server("l2_elec_ui_1", r, obj_page) #2e ligne
     
     locale <- reactiveValues(
       
@@ -104,43 +91,7 @@ mod_electr_server <- function(id, r){
       }) 
     
     
-  #   output$pie_MW <- renderGirafe ({
-  #     req(input$mon_ter)
-  #     p <- inner_join(indic_registre, liste_ter()) %>%
-  #       filter(grepl("puiss_MW", variable)) %>%
-  #       mutate(code_typo=gsub("puiss_MW__", "", variable)) %>%
-  #       inner_join(typo_registre) %>%
-  #       ggplot() + scale_fill_manual(values = col_registre) +
-  #       geom_bar_interactive(aes(x=Zone, y=valeur, fill=typo,
-  #                                tooltip = paste0(typo, " : ", prettyNum(round(valeur, 1), decimal.mark = ","), " MW")),
-  #                            stat="identity", position="fill") +
-  #       labs(title=element_blank(), x=element_blank(), y=element_blank(), colour = NULL, fill=NULL)
-  #     
-  #     if (maille_terr()!="R\u00e9gions") {
-  #       girafeTEO( p +  theme_TEO + scale_y_continuous(labels = c("0 %", "25 %", "50 %", "75 %", "100 %")))
-  #     }
-  #     else {
-  #       girafeTEO( p + theme_TEO_carto + coord_polar(theta = "y") )
-  #     }
-  #     
-  #   })
-  #   
-  #   output$pie_MWh <- renderGirafe ({ req(input$mon_ter)
-  #     p <- inner_join(Enedis_com_a_reg, liste_ter()) %>%
-  #       filter(grepl("Energie", indicateur), annee==mil) %>%
-  #       ggplot() + scale_fill_manual(values=col_enedis) +
-  #       geom_bar_interactive(aes(Zone, valeur, fill=Filiere.de.production,
-  #                                tooltip = paste0(Filiere.de.production, " :\n", round(valeur/1000000,1), " GWh")),
-  #                            stat="identity", position="fill" ) +
-  #       labs(title=element_blank(), x=element_blank(), y=element_blank(), colour = NULL, fill=NULL)
-  #     
-  #     if (maille_terr()!="R\u00e9gions") {
-  #       girafeTEO( p +  theme_TEO + scale_y_continuous(labels = c("0%", "25%", "50%", "75%", "100%")))
-  #     }
-  #     else {
-  #       girafeTEO( p + theme_TEO_carto + coord_polar(theta = "y") )
-  #     }
-  #   })
+
   #   
   #   output$carto_inst <- renderLeaflet({
   #     req(input$mon_ter)
