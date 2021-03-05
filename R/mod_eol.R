@@ -17,7 +17,7 @@ mod_eol_ui <- function(id){
 #' eol Server Functions
 #'
 #' @noRd 
-mod_eol_server <- function(id){
+mod_eol_server <- function(id, r){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
  

@@ -10,17 +10,237 @@
 mod_electr_ui <- function(id){
   ns <- NS(id)
   tagList(
- 
+    
+    mod_entete_ui(ns("entete_ui_1")), # en tete
+    
+    mod_l1_gaz_elec_ui(ns("l1_gaz_elec_ui_1")), #1ere ligne
+    
+    
+    # fluidRow(   #2e ligne
+    #   
+    #   box(status="primary", solidHeader = TRUE, width=6,
+    #       title = span("R\u00e9partition des puissances install\u00e9es", style="color:white"),
+    #       girafeOutput(ns("pie_MW"),  width="100%", height = 370) %>% withSpinner(type=4),
+    #       style="color:black",
+    #       span(paste0("au 31/12/", mil, " - Source : Registre"), style="font-size: 12px")
+    #   ),
+    #   
+    #   box(status="primary", solidHeader = TRUE, width=6,
+    #       title = span("R\u00e9partition de la production EnR&R", style="color:white"),
+    #       girafeOutput(ns("pie_MWh"),  width="100%", height = 370),
+    #       style="color:black",
+    #       span(paste0("GWh produits en ", mil, " - Source : ENEDIS"), style="font-size: 12px")
+    #   )
+    # ),
+    # 
+    # fluidRow(   #3e ligne
+    #   
+    #   box(status="primary", solidHeader = TRUE, width=6,
+    #       title = span("Installations de production \u00e9lectrique EnR&R", style="color:white"),
+    #       leafletOutput(ns("carto_inst"), width = "95%", height = 370),
+    #       downloadButton("bouton_carte_inst_elec","carte en png"),
+    #       style="color:black",
+    #       span(paste0("Source : registre au 31/12/", mil), style="font-size: 12px")
+    #   ),
+    #   
+    #   box(status="primary", solidHeader = TRUE, width=6,
+    #       title = span(paste0("Part de la consommation couverte par les EnR&R en ", mil), style="color:white"),
+    #       girafeOutput(ns("carto_part_enr"), width = "100%", height = 380),
+    #       style="color:black",
+    #       span("Source : Donn\u00e9es Enedis et SDES retravaill\u00e9es par la DREAL", style="font-size: 12px")
+    #   )
+    # ),
+    # 
+    # fluidRow(   #5e ligne
+    #   box(status="primary", solidHeader = TRUE, width=12,
+    #       title = span("Installations de production \u00e9lectrique EnR&R", style="color:white"),
+    #       dataTableOutput(ns("tab_inst")) %>% withSpinner(type=1),
+    #       style="color:black",
+    #       span(paste0("Source : registre au 31/12/", mil), style="font-size: 12px")
+    #   )
+    # ),
+    HTML('<div data-iframe-height></div>')
+    
+    
   )
+  
+
 }
     
-#' electr Server Functions
+#' electr Server Functions -----------------------------------------------------
 #'
 #' @noRd 
-mod_electr_server <- function(id){
+mod_electr_server <- function(id, r){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
- 
+
+    obj_page <- list(
+      titre = "Toutes fili\u00e8res \u00e9lectriques renouvelables et de r\u00e9cup\u00e9ration",
+      icone = "bolt",
+      domaine = "*",
+      millesime = enr.reseaux::mil,
+      df_nb_inst_MWh = enr.reseaux::Enedis_com_a_reg,
+      var_pct_enrr = c("pourcent_enrr", "cat_prct_enrr"),
+      df_repart_MW = enr.reseaux::indic_registre,
+      couche = enr.reseaux::couche_fil,
+      leg_box_enr = paste0("consommation \u00e9lectrique couverte par la production EnR&R en ", enr.reseaux::mil),
+      leg_box_prod = paste0("GWh produits en ", enr.reseaux::mil),
+      fct_GWh = 1000000
+      
+    )
+    
+    mod_entete_server("entete_ui_1", r, obj_page)
+    
+    mod_l1_gaz_elec_server("l1_gaz_elec_ui_1", r, obj_page)
+    
+    locale <- reactiveValues(
+      
+    )
+    
+    observeEvent(
+      r$go,{
+        locale
+        
+      }) 
+    
+    
+  #   output$pie_MW <- renderGirafe ({
+  #     req(input$mon_ter)
+  #     p <- inner_join(indic_registre, liste_ter()) %>%
+  #       filter(grepl("puiss_MW", variable)) %>%
+  #       mutate(code_typo=gsub("puiss_MW__", "", variable)) %>%
+  #       inner_join(typo_registre) %>%
+  #       ggplot() + scale_fill_manual(values = col_registre) +
+  #       geom_bar_interactive(aes(x=Zone, y=valeur, fill=typo,
+  #                                tooltip = paste0(typo, " : ", prettyNum(round(valeur, 1), decimal.mark = ","), " MW")),
+  #                            stat="identity", position="fill") +
+  #       labs(title=element_blank(), x=element_blank(), y=element_blank(), colour = NULL, fill=NULL)
+  #     
+  #     if (maille_terr()!="R\u00e9gions") {
+  #       girafeTEO( p +  theme_TEO + scale_y_continuous(labels = c("0 %", "25 %", "50 %", "75 %", "100 %")))
+  #     }
+  #     else {
+  #       girafeTEO( p + theme_TEO_carto + coord_polar(theta = "y") )
+  #     }
+  #     
+  #   })
+  #   
+  #   output$pie_MWh <- renderGirafe ({ req(input$mon_ter)
+  #     p <- inner_join(Enedis_com_a_reg, liste_ter()) %>%
+  #       filter(grepl("Energie", indicateur), annee==mil) %>%
+  #       ggplot() + scale_fill_manual(values=col_enedis) +
+  #       geom_bar_interactive(aes(Zone, valeur, fill=Filiere.de.production,
+  #                                tooltip = paste0(Filiere.de.production, " :\n", round(valeur/1000000,1), " GWh")),
+  #                            stat="identity", position="fill" ) +
+  #       labs(title=element_blank(), x=element_blank(), y=element_blank(), colour = NULL, fill=NULL)
+  #     
+  #     if (maille_terr()!="R\u00e9gions") {
+  #       girafeTEO( p +  theme_TEO + scale_y_continuous(labels = c("0%", "25%", "50%", "75%", "100%")))
+  #     }
+  #     else {
+  #       girafeTEO( p + theme_TEO_carto + coord_polar(theta = "y") )
+  #     }
+  #   })
+  #   
+  #   output$carto_inst <- renderLeaflet({
+  #     req(input$mon_ter)
+  #     carte_PV <- couche_fil("pvq", input$mon_ter, 6)
+  #     carte_bois <- couche_fil("bois", input$mon_ter, 1)
+  #     carte_dechet <- couche_fil("dechet", input$mon_ter, 2)
+  #     carte_hydro <- couche_fil("hydro", input$mon_ter, 3)
+  #     carte_metha <- couche_fil("metha", input$mon_ter, 4)
+  #     carte_eol <- couche_fil("eol", input$mon_ter, 5)
+  #     
+  #     (contours() + carte_PV + carte_bois + carte_dechet + carte_hydro + carte_metha + carte_eol)@map %>%
+  #       addFullscreenControl() # %>%
+  #     # leafem::addHomeButton(group = "contours") # ça marche pour la carte, mais ça impacte le bon fonctionnement de l'application, notamment les tableaux
+  #   })
+  #   
+  #   user.created.map <- reactive({
+  #     req(input$mon_ter)
+  #     carte_PV <- couche_fil("pvq", input$mon_ter, 6, TRUE)
+  #     carte_bois <- couche_fil("bois", input$mon_ter, 1, TRUE)
+  #     carte_dechet <- couche_fil("dechet", input$mon_ter, 2, TRUE)
+  #     carte_hydro <- couche_fil("hydro", input$mon_ter, 3, TRUE)
+  #     carte_metha <- couche_fil("metha", input$mon_ter, 4, TRUE)
+  #     carte_eol <- couche_fil("eol", input$mon_ter, 5, TRUE)
+  #     tag.map.title <- tags$style(HTML("
+  # .leaflet-control.map-title {
+  #   transform: translate(-50%,20%);
+  #   position: fixed !important;
+  #   left: 0%;
+  #   text-align: left;
+  #   padding-left: 10px;
+  #   padding-right: 10px;
+  #   background: rgba(255,255,255,0.75);
+  #   font-weight: bold;
+  #   font-size: 18px;
+  #   }"))
+  #     title <- tags$div(
+  #       tag.map.title, HTML("Installations<br>de production \u00e9lectrique<br>EnR&R", paste0("<p>Source : registre au 31/12/", mil))
+  #     )
+  #     # source<-paste0("Source : registre au 31/12/", mil)
+  #     (contours() + carte_PV + carte_bois + carte_dechet + carte_hydro + carte_metha + carte_eol)@map %>%
+  #       addControl(title, position = "topleft", className="map-title")
+  #   }) # end of creating user.created.map()
+  #   
+  #   output$bouton_carte_inst_elec <- downloadHandler(
+  #     filename = paste0( Sys.Date(),"_map_inst_elec",".png"),
+  #     content = function(file) {
+  #       map<-mapshot( user.created.map(),
+  #                     file = file,
+  #                     cliprect = "viewport", # the clipping rectangle matches the height & width from the viewing port
+  #                     selfcontained = FALSE # when this was not specified, the function for produced a PDF of two pages: one of the leaflet map, the other a blank page.
+  #       )
+  #     } # end of content() function
+  #   ) # end of downloadHandler() function
+  #   
+  #   
+  #   output$carto_part_enr <- renderGirafe({
+  #     req(input$mon_ter)
+  #     if (maille_terr()=="Epci") {
+  #       carto_maille <- carto_epci
+  #       lim <- filter(carto_epci, EPCI==input$mon_ter) %>% st_bbox()
+  #     }
+  #     else
+  #       if (maille_terr()=="R\u00e9gions")
+  #       {carto_maille <- carto_epci}
+  #     else {
+  #       carto_maille <- filter(carto_epci, EPCI %in% epci_dep()$CodeZone)
+  #     }
+  #     
+  #     c <- ggplot(carto_maille, aes(fill=cat_prct_enrr, tooltip=paste0(htmlEscape(Zone, TRUE), " : ", round(pourcent_enrr, 1), " %"))) +
+  #       geom_sf_interactive() + theme_TEO_carto +
+  #       scale_fill_brewer(palette="PuBuGn") +
+  #       labs(title=element_blank(), x=element_blank(), y=element_blank(), fill=element_blank())
+  #     
+  #     if (maille_terr()=="Epci")
+  #     {c <- c + coord_sf(crs = st_crs(carto_maille), datum = NA, expand = FALSE,
+  #                        xlim = c(lim[[1]]-25000, lim[[3]]+25000),
+  #                        ylim = c(lim[[2]]-20000, lim[[4]]+20000))}
+  #     else {c <- c + coord_sf(crs = st_crs(carto_maille), datum = NA)}
+  #     
+  #     
+  #     girafeTEO(c, fill_tooltip=FALSE)
+  #   })
+  #   
+  #   output$tab_inst <- DT::renderDataTable(
+  #     if (isTruthy(input$mon_ter)) {
+  #       filter(inst_reg, REG==input$mon_ter|DEP==input$mon_ter|EPCI==input$mon_ter) %>% as.data.frame() %>%
+  #         mutate(part_EnR=part_EnR*100, date_inst=year(date_inst)) %>%
+  #         select(commune= NOM_DEPCOM, Installation=nominstallation, 'puissance (MW)'=puiss_MW, type=typo,
+  #                combustible, 'combustible secondaire'=combustiblessecondaires, 'nombre de m\u00e2ts'=nbgroupes,
+  #                'production annuelle (MWh)'= prod_MWh_an, 'part renouvelable (%)'=part_EnR,
+  #                'mise en service'=date_inst, -geometry) %>%
+  #         select_if(is_not_empty) %>% select_if(is_pas_zero)%>%
+  #         arrange(desc(`puissance (MW)`), commune, type, Installation)},
+  #     # %>% formatPercentage(7, 0)
+  #     extensions = 'Buttons', rownames = FALSE,
+  #     options = list(dom = 'Bfrtip', pageLength = 10, language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/French.json'),
+  #                    buttons = list(c(list(extend = 'csv', file=paste0(Sys.Date(), '-registre_elec_3112', mil, '-', input$mon_ter, '.csv')))))
+  #   )
+    
+
   })
 }
     

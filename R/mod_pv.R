@@ -17,7 +17,7 @@ mod_pv_ui <- function(id){
 #' pv Server Functions
 #'
 #' @noRd 
-mod_pv_server <- function(id){
+mod_pv_server <- function(id, r){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
  

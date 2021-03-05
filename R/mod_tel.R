@@ -17,7 +17,7 @@ mod_tel_ui <- function(id){
 #' tel Server Functions
 #'
 #' @noRd 
-mod_tel_server <- function(id){
+mod_tel_server <- function(id, r){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
  

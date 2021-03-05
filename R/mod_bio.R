@@ -17,7 +17,7 @@ mod_bio_ui <- function(id){
 #' bio Server Functions
 #'
 #' @noRd 
-mod_bio_server <- function(id){
+mod_bio_server <- function(id, r){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
  

@@ -17,7 +17,7 @@ mod_hydro_ui <- function(id){
 #' hydro Server Functions
 #'
 #' @noRd 
-mod_hydro_server <- function(id){
+mod_hydro_server <- function(id, r){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
  

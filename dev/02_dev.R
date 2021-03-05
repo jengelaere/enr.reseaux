@@ -28,8 +28,8 @@ usethis::use_package("sf")
 usethis::use_package("mapview")
 usethis::use_package("leafpop")
 usethis::use_package("shinydashboard")
-usethis::use_package()
-usethis::use_package()
+usethis::use_package("tidyr")
+usethis::use_package("shinydreal")
 usethis::use_package()
 usethis::use_package()
 usethis::use_package()
@@ -44,18 +44,20 @@ usethis::use_package()
 
 ## Add modules ----
 ## Create a module infrastructure in R/
-golem::add_module( name = "selection" ) # Name of the module
-golem::add_module( name = "electr" )# Name of the module
-golem::add_module( name = "eol" )
-golem::add_module( name = "pv" )
-golem::add_module( name = "hydro" )
-golem::add_module( name = "bio" )
-golem::add_module( name = "biogaz" )
-golem::add_module( name = "tel" )
-golem::add_module( name = "about" )
-golem::add_module( name = "" )
-golem::add_module( name = "" )
-golem::add_module( name = "" )
+golem::add_module( name = "selection" ) # selection territoriale
+golem::add_module( name = "electr" ) # onglet toutes filieres elec
+golem::add_module( name = "eol" )  # onglet eolien
+golem::add_module( name = "pv" ) # onglet solaire pv
+golem::add_module( name = "hydro" ) # onglet hydroelectricite
+golem::add_module( name = "bio" ) # onglet cogeneration biomasse
+golem::add_module( name = "biogaz" ) # onglet injection biomethane
+golem::add_module( name = "tel" ) # onglet telechargement
+golem::add_module( name = "about" ) # onglet A propos
+## sous-modules
+golem::add_module( name = "entete" ) # entete de chaque onglet
+golem::add_module( name = "l1_gaz_elec" ) # 1ere ligne des onglets tout electr et biomethane
+golem::add_module( name = "l2_elec" ) # 2e ligne de l'onglet tout electr
+golem::add_module( name = "l2_gaz" ) # 2e ligne de l'onglet biomethane
 golem::add_module( name = "" )
 golem::add_module( name = "" )
 golem::add_module( name = "" )
