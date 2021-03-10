@@ -13,7 +13,8 @@ mod_biogaz_ui <- function(id){
     
     mod_entete_ui(ns("entete_ui_1")), # en tete
     mod_l1_gaz_elec_ui(ns("l1_gaz_elec_ui_1")), #1ere ligne
-    mod_l2_gaz_ui(ns("l2_gaz_ui_1"))
+    mod_l2_gaz_ui(ns("l2_gaz_ui_1")),
+    fluidRow(mod_l3_obj2_elec_gaz_ui(ns("l3_obj2_elec_gaz_ui_1")))
 
  
   )
@@ -26,6 +27,7 @@ mod_biogaz_server <- function(id, r){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     
+    # liste d'objets non reactifs propres a la page a propager dans les sous modules
     obj_page <- list(
       titre = "Injections de biom\u00e9thane sur les r\u00e9seaux de gaz naturel",
       icone = "burn",
@@ -37,7 +39,8 @@ mod_biogaz_server <- function(id, r){
       couche = enr.reseaux::couche_typ_gaz,
       leg_box_enr = paste0("consommation gaz couverte par les injections de biom\u00e9thane en ", enr.reseaux::mil_gaz),
       leg_box_prod = paste0("GWh inject\u00e9s sur le r\u00e9seau en ", enr.reseaux::mil_gaz),
-      fct_GWh = 1000
+      fct_GWh = 1000,
+      df_inst <- enr.reseaux::inst_biogaz_reg
     )
     
     locale <- reactiveValues(
@@ -53,6 +56,7 @@ mod_biogaz_server <- function(id, r){
     mod_entete_server("entete_ui_1", r, obj_page)
     mod_l1_gaz_elec_server("l1_gaz_elec_ui_1", r, obj_page)
     mod_l2_gaz_server("l2_gaz_ui_1", r)
+    mod_l3_obj2_elec_gaz_server("l3_obj2_elec_gaz_ui_1", r, obj_page)
  
   })
 }

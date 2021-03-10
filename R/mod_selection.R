@@ -68,19 +68,19 @@ mod_selection_server <- function(id, r){
     observeEvent(
       c(input$mon_dept), {  
         if(input$mon_dept != enr.reseaux::reg) {
-          locale$epci_dep <- dplyr::filter(enr.reseaux::liste_zones_dep, .data$dep == input$mon_dept) %>% 
+          r$epci_dep <- dplyr::filter(enr.reseaux::liste_zones_dep, .data$dep == input$mon_dept) %>% 
             tidyr::unnest(.data$data) %>% 
             dplyr::pull(.data$CodeZone) %>%
             stats::setNames(dplyr::filter(enr.reseaux::liste_zones_dep, .data$dep==input$mon_dept) %>% 
                        tidyr::unnest(cols = c(.data$data)) %>% dplyr::pull(.data$Zone))
         } else {
-          locale$epci_dep <- enr.reseaux::liste_zones
+          r$epci_dep <- enr.reseaux::liste_zones
         }
         
         updateSelectInput(
           session = session,
           inputId = "mon_ter",
-          choices = locale$epci_dep,
+          choices = r$epci_dep,
           selected = input$mon_dept
         )
         

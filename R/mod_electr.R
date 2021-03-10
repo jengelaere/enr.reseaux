@@ -16,6 +16,8 @@ mod_electr_ui <- function(id){
     mod_l1_gaz_elec_ui(ns("l1_gaz_elec_ui_1")), #1ere ligne
     
     mod_l2_elec_ui(ns("l2_elec_ui_1")), # 2e ligne
+    
+    fluidRow(mod_l3_obj2_elec_gaz_ui(ns("l3_obj2_elec_gaz_ui_1"))),
 
     # 
     # fluidRow(   #3e ligne
@@ -26,13 +28,6 @@ mod_electr_ui <- function(id){
     #       downloadButton("bouton_carte_inst_elec","carte en png"),
     #       style="color:black",
     #       span(paste0("Source : registre au 31/12/", mil), style="font-size: 12px")
-    #   ),
-    #   
-    #   box(status="primary", solidHeader = TRUE, width=6,
-    #       title = span(paste0("Part de la consommation couverte par les EnR&R en ", mil), style="color:white"),
-    #       girafeOutput(ns("carto_part_enr"), width = "100%", height = 380),
-    #       style="color:black",
-    #       span("Source : Donn\u00e9es Enedis et SDES retravaill\u00e9es par la DREAL", style="font-size: 12px")
     #   )
     # ),
     # 
@@ -58,7 +53,8 @@ mod_electr_ui <- function(id){
 mod_electr_server <- function(id, r){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
-
+    
+    # liste d'objets non reactifs propres a la page, a propager dans les sous modules
     obj_page <- list(
       titre = "Toutes fili\u00e8res \u00e9lectriques renouvelables et de r\u00e9cup\u00e9ration",
       icone = "bolt",
@@ -70,15 +66,17 @@ mod_electr_server <- function(id, r){
       couche = enr.reseaux::couche_fil,
       leg_box_enr = paste0("consommation \u00e9lectrique couverte par la production EnR&R en ", enr.reseaux::mil),
       leg_box_prod = paste0("GWh produits en ", enr.reseaux::mil),
-      fct_GWh = 1000000
+      fct_GWh = 1000000,
+      df_inst <- enr.reseaux::inst_reg
       
     )
     
     mod_entete_server("entete_ui_1", r, obj_page)
-    
     mod_l1_gaz_elec_server("l1_gaz_elec_ui_1", r, obj_page) #1ere ligne
-    
     mod_l2_elec_server("l2_elec_ui_1", r, obj_page) #2e ligne
+    
+    mod_l3_obj2_elec_gaz_server("l3_obj2_elec_gaz_ui_1", r, obj_page) #3e ligne, 2e objet
+    
     
     locale <- reactiveValues(
       

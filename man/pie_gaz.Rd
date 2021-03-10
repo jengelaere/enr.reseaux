@@ -16,7 +16,7 @@ pie_gaz(r = r, indic = "capaci", unite = " GWh/an", fct_unite = 1)
 \item{fct_unite}{facteur de conversion d'unite, 1000 pour les injections annuelles, 1 pour les capacites}
 }
 \value{
-
+un graph ggiraph de repartition des installations biomethane par type
 }
 \description{
 Production des graphiques de repartition biogaz
