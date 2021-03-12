@@ -7,7 +7,7 @@
 get_carto(list, txt = "carte_PV")
 }
 \arguments{
-\item{list}{la liste d'objets reactifs}
+\item{list}{la liste d'objets reactifs comprenant les différentes couches mapview des filieres}
 
 \item{txt}{le nom d'une couche carto, au format texte}
 }

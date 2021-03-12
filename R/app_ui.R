@@ -63,7 +63,7 @@ app_ui <- function(request) {
                               mod_hydro_ui("hydro_ui_1")
                       ),
                       tabItem("bio",
-                              mod_electr_ui("bio_ui_1")
+                              mod_bio_ui("bio_ui_1")
                       ),
                       tabItem("biogaz",
                               mod_biogaz_ui("biogaz_ui_1")

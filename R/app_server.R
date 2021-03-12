@@ -47,12 +47,12 @@ app_server <- function( input, output, session ) {
   # List the first level callModules here
   mod_selection_server("selection_ui_1", r = r)
   mod_electr_server("electr_ui_1", r = r)
-  mod_eol_server("eol_ui_1")
-  mod_pv_server("pv_ui_1")
-  mod_hydro_server("hydro_ui_1")
-  mod_bio_server("bio_ui_1")
+  mod_eol_server("eol_ui_1", r = r)
+  mod_pv_server("pv_ui_1", r = r)
+  mod_hydro_server("hydro_ui_1", r = r)
+  mod_bio_server("bio_ui_1", r = r)
   mod_biogaz_server("biogaz_ui_1", r = r)
-  mod_tel_server("tel_ui_1")
+  mod_tel_server("tel_ui_1", r = r)
   mod_about_server("about_ui_1")
   
   }

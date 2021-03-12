@@ -64,7 +64,7 @@ mod_electr_server <- function(id, r){
       # df_inst = enr.reseaux::inst_reg,
       carto_inst_titre = "Installations de production \u00e9lectrique EnR&R",
       carto_inst_caption = paste0("Source : registre au 31/12/", enr.reseaux::mil),
-      carto_couches = c("contours", "carte_PV", "carte_bois", "carte_dechet", "carte_hydro", "carte_metha", "carte_eol")
+      carto_couches = c("carte_PV", "carte_bois", "carte_dechet", "carte_hydro", "carte_metha", "carte_eol")
       )
     
     mod_entete_server("entete_ui_1", r, obj_page)
@@ -81,61 +81,7 @@ mod_electr_server <- function(id, r){
     
     
 
-  #   
-  #   output$carto_inst <- renderLeaflet({
-  #     req(input$mon_ter)
-  #     carte_PV <- couche_fil("pvq", input$mon_ter, 6)
-  #     carte_bois <- couche_fil("bois", input$mon_ter, 1)
-  #     carte_dechet <- couche_fil("dechet", input$mon_ter, 2)
-  #     carte_hydro <- couche_fil("hydro", input$mon_ter, 3)
-  #     carte_metha <- couche_fil("metha", input$mon_ter, 4)
-  #     carte_eol <- couche_fil("eol", input$mon_ter, 5)
-  #     
-  #     (contours() + carte_PV + carte_bois + carte_dechet + carte_hydro + carte_metha + carte_eol)@map %>%
-  #       addFullscreenControl() # %>%
-  #     # leafem::addHomeButton(group = "contours") # ça marche pour la carte, mais ça impacte le bon fonctionnement de l'application, notamment les tableaux
-  #   })
-  #   
-  #   user.created.map <- reactive({
-  #     req(input$mon_ter)
-  #     carte_PV <- couche_fil("pvq", input$mon_ter, 6, TRUE)
-  #     carte_bois <- couche_fil("bois", input$mon_ter, 1, TRUE)
-  #     carte_dechet <- couche_fil("dechet", input$mon_ter, 2, TRUE)
-  #     carte_hydro <- couche_fil("hydro", input$mon_ter, 3, TRUE)
-  #     carte_metha <- couche_fil("metha", input$mon_ter, 4, TRUE)
-  #     carte_eol <- couche_fil("eol", input$mon_ter, 5, TRUE)
-  #     tag.map.title <- tags$style(HTML("
-  # .leaflet-control.map-title {
-  #   transform: translate(-50%,20%);
-  #   position: fixed !important;
-  #   left: 0%;
-  #   text-align: left;
-  #   padding-left: 10px;
-  #   padding-right: 10px;
-  #   background: rgba(255,255,255,0.75);
-  #   font-weight: bold;
-  #   font-size: 18px;
-  #   }"))
-  #     title <- tags$div(
-  #       tag.map.title, HTML("Installations<br>de production \u00e9lectrique<br>EnR&R", paste0("<p>Source : registre au 31/12/", mil))
-  #     )
-  #     # source<-paste0("Source : registre au 31/12/", mil)
-  #     (contours() + carte_PV + carte_bois + carte_dechet + carte_hydro + carte_metha + carte_eol)@map %>%
-  #       addControl(title, position = "topleft", className="map-title")
-  #   }) # end of creating user.created.map()
-  #   
-  #   output$bouton_carte_inst_elec <- downloadHandler(
-  #     filename = paste0( Sys.Date(),"_map_inst_elec",".png"),
-  #     content = function(file) {
-  #       map<-mapshot( user.created.map(),
-  #                     file = file,
-  #                     cliprect = "viewport", # the clipping rectangle matches the height & width from the viewing port
-  #                     selfcontained = FALSE # when this was not specified, the function for produced a PDF of two pages: one of the leaflet map, the other a blank page.
-  #       )
-  #     } # end of content() function
-  #   ) # end of downloadHandler() function
-  #   
-  #   
+
 
   #   
   #   output$tab_inst <- DT::renderDataTable(
