@@ -58,8 +58,8 @@ golem::add_module( name = "l1_gaz_elec" ) # 1ere ligne des onglets tout electr e
 golem::add_module( name = "l2_elec" ) # 2e ligne de l'onglet tout electr
 golem::add_module( name = "l2_gaz" ) # 2e ligne de l'onglet biomethane
 golem::add_module( name = "carto_part_enr" ) # 2e box de la 3e ligne des onglets tout electr et biomethane - carto part EnR
-golem::add_module( name = "carto_mapview" ) # module commun à toutes les pages
-golem::add_module( name = "" )
+golem::add_module( name = "carto_mapview" ) # carte des installations, module commun à toutes les pages
+golem::add_module( name = "tab_inst" ) # tableau des installations, commun onglets tout electr et biomethane
 golem::add_module( name = "" )
 golem::add_module( name = "" )
 golem::add_module( name = "" )
@@ -92,6 +92,14 @@ golem::add_fct( "pie_gaz" )
 usethis::use_test( "pie_gaz" )
 golem::add_fct( "compose_carto" ) 
 usethis::use_test( "compose_carto" )
+golem::add_fct( "tab_inst_elec" ) 
+usethis::use_test( "tab_inst_elec" )
+golem::add_fct( "tab_inst_biogaz" ) 
+usethis::use_test( "tab_inst_biogaz" )
+golem::add_fct( "" ) 
+usethis::use_test( "" )
+golem::add_fct( "" ) 
+usethis::use_test( "" )
 golem::add_fct( "" ) 
 usethis::use_test( "" )
 golem::add_fct( "" ) 

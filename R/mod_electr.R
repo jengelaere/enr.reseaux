@@ -21,17 +21,8 @@ mod_electr_ui <- function(id){
       mod_carto_mapview_ui(ns("carto_mapview_ui_1")),
       mod_carto_part_enr_ui(ns("carto_part_enr_ui_1"))
       ),
+    mod_tab_inst_ui(ns("tab_inst_ui_1")),
 
-
-    # 
-    # fluidRow(   #5e ligne
-    #   box(status="primary", solidHeader = TRUE, width=12,
-    #       title = span("Installations de production \u00e9lectrique EnR&R", style="color:white"),
-    #       dataTableOutput(ns("tab_inst")) %>% withSpinner(type=1),
-    #       style="color:black",
-    #       span(paste0("Source : registre au 31/12/", mil), style="font-size: 12px")
-    #   )
-    # ),
     HTML('<div data-iframe-height></div>')
     
     
@@ -61,44 +52,18 @@ mod_electr_server <- function(id, r){
       leg_box_enr = paste0("consommation \u00e9lectrique couverte par la production EnR&R en ", enr.reseaux::mil),
       leg_box_prod = paste0("GWh produits en ", enr.reseaux::mil),
       fct_GWh = 1000000,
-      # df_inst = enr.reseaux::inst_reg,
       carto_inst_titre = "Installations de production \u00e9lectrique EnR&R",
       carto_inst_caption = paste0("Source : registre au 31/12/", enr.reseaux::mil),
-      carto_couches = c("carte_PV", "carte_bois", "carte_dechet", "carte_hydro", "carte_metha", "carte_eol")
+      carto_couches = c("carte_PV", "carte_bois", "carte_dechet", "carte_hydro", "carte_metha", "carte_eol"),
+      fct_inst = "tab_inst_elec"
       )
     
     mod_entete_server("entete_ui_1", r, obj_page)
-    mod_l1_gaz_elec_server("l1_gaz_elec_ui_1", r, obj_page) #1ere ligne
-    mod_l2_elec_server("l2_elec_ui_1", r, obj_page) #2e ligne
-    
-    mod_carto_part_enr_server("carto_part_enr_ui_1", r, obj_page) #3e ligne, 2e objet
-    mod_carto_mapview_server("carto_mapview_ui_1", r, obj_page) 
-    
-    observeEvent(
-      r$go,{
-        
-      }) 
-    
-    
-
-
-
-  #   
-  #   output$tab_inst <- DT::renderDataTable(
-  #     if (isTruthy(input$mon_ter)) {
-  #       filter(inst_reg, REG==input$mon_ter|DEP==input$mon_ter|EPCI==input$mon_ter) %>% as.data.frame() %>%
-  #         mutate(part_EnR=part_EnR*100, date_inst=year(date_inst)) %>%
-  #         select(commune= NOM_DEPCOM, Installation=nominstallation, 'puissance (MW)'=puiss_MW, type=typo,
-  #                combustible, 'combustible secondaire'=combustiblessecondaires, 'nombre de m\u00e2ts'=nbgroupes,
-  #                'production annuelle (MWh)'= prod_MWh_an, 'part renouvelable (%)'=part_EnR,
-  #                'mise en service'=date_inst, -geometry) %>%
-  #         select_if(is_not_empty) %>% select_if(is_pas_zero)%>%
-  #         arrange(desc(`puissance (MW)`), commune, type, Installation)},
-  #     # %>% formatPercentage(7, 0)
-  #     extensions = 'Buttons', rownames = FALSE,
-  #     options = list(dom = 'Bfrtip', pageLength = 10, language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/French.json'),
-  #                    buttons = list(c(list(extend = 'csv', file=paste0(Sys.Date(), '-registre_elec_3112', mil, '-', input$mon_ter, '.csv')))))
-  #   )
+    mod_l1_gaz_elec_server("l1_gaz_elec_ui_1", r, obj_page)       # 1ere ligne
+    mod_l2_elec_server("l2_elec_ui_1", r, obj_page)               # 2e ligne
+    mod_carto_mapview_server("carto_mapview_ui_1", r, obj_page)   # 3e ligne, 1e objet
+    mod_carto_part_enr_server("carto_part_enr_ui_1", r, obj_page) # 3e ligne, 2e objet
+    mod_tab_inst_server("tab_inst_ui_1", r, obj_page)             # 4e ligne
     
 
   })
