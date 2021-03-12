@@ -31,9 +31,9 @@ usethis::use_package("shinydashboard")
 usethis::use_package("tidyr")
 usethis::use_package("shinycssloaders")
 usethis::use_package("htmltools")
-usethis::use_package()
-usethis::use_package()
-usethis::use_package()
+usethis::use_package("purrr")
+usethis::use_package("leaflet")
+usethis::use_package("leaflet.extras")
 usethis::use_package()
 usethis::use_package()
 usethis::use_package()
@@ -57,8 +57,8 @@ golem::add_module( name = "entete" ) # entete de chaque onglet
 golem::add_module( name = "l1_gaz_elec" ) # 1ere ligne des onglets tout electr et biomethane
 golem::add_module( name = "l2_elec" ) # 2e ligne de l'onglet tout electr
 golem::add_module( name = "l2_gaz" ) # 2e ligne de l'onglet biomethane
-golem::add_module( name = "l3_obj2_elec_gaz" ) # 2e box de la 3e ligne des onglets tout electr et biomethane - carto part EnR
-golem::add_module( name = "" )
+golem::add_module( name = "carto_part_enr" ) # 2e box de la 3e ligne des onglets tout electr et biomethane - carto part EnR
+golem::add_module( name = "carto_mapview" ) # module commun à toutes les pages
 golem::add_module( name = "" )
 golem::add_module( name = "" )
 golem::add_module( name = "" )
@@ -90,8 +90,8 @@ golem::add_fct( "girafeTEO_pie" )
 usethis::use_test( "girafeTEO_pie" )
 golem::add_fct( "pie_gaz" ) 
 usethis::use_test( "pie_gaz" )
-golem::add_fct( "" ) 
-usethis::use_test( "" )
+golem::add_fct( "compose_carto" ) 
+usethis::use_test( "compose_carto" )
 golem::add_fct( "" ) 
 usethis::use_test( "" )
 golem::add_fct( "" ) 

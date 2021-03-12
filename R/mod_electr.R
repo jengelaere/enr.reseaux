@@ -17,19 +17,12 @@ mod_electr_ui <- function(id){
     
     mod_l2_elec_ui(ns("l2_elec_ui_1")), # 2e ligne
     
-    fluidRow(mod_l3_obj2_elec_gaz_ui(ns("l3_obj2_elec_gaz_ui_1"))),
+    fluidRow(
+      mod_carto_mapview_ui(ns("carto_mapview_ui_1")),
+      mod_carto_part_enr_ui(ns("carto_part_enr_ui_1"))
+      ),
 
-    # 
-    # fluidRow(   #3e ligne
-    #   
-    #   box(status="primary", solidHeader = TRUE, width=6,
-    #       title = span("Installations de production \u00e9lectrique EnR&R", style="color:white"),
-    #       leafletOutput(ns("carto_inst"), width = "95%", height = 370),
-    #       downloadButton("bouton_carte_inst_elec","carte en png"),
-    #       style="color:black",
-    #       span(paste0("Source : registre au 31/12/", mil), style="font-size: 12px")
-    #   )
-    # ),
+
     # 
     # fluidRow(   #5e ligne
     #   box(status="primary", solidHeader = TRUE, width=12,
@@ -57,34 +50,32 @@ mod_electr_server <- function(id, r){
     # liste d'objets non reactifs propres a la page, a propager dans les sous modules
     obj_page <- list(
       titre = "Toutes fili\u00e8res \u00e9lectriques renouvelables et de r\u00e9cup\u00e9ration",
+      fil = "elect",
       icone = "bolt",
       domaine = "*",
       millesime = enr.reseaux::mil,
       df_nb_inst_MWh = enr.reseaux::Enedis_com_a_reg,
       var_pct_enrr = c("pourcent_enrr", "cat_prct_enrr"),
+      caption_pct_enrr = "Source : Donn\u00e9es Enedis et SDES retravaill\u00e9es par la DREAL",
       df_repart_MW = enr.reseaux::indic_registre,
-      couche = enr.reseaux::couche_fil,
       leg_box_enr = paste0("consommation \u00e9lectrique couverte par la production EnR&R en ", enr.reseaux::mil),
       leg_box_prod = paste0("GWh produits en ", enr.reseaux::mil),
       fct_GWh = 1000000,
-      df_inst <- enr.reseaux::inst_reg
-      
-    )
+      # df_inst = enr.reseaux::inst_reg,
+      carto_inst_titre = "Installations de production \u00e9lectrique EnR&R",
+      carto_inst_caption = paste0("Source : registre au 31/12/", enr.reseaux::mil),
+      carto_couches = c("contours", "carte_PV", "carte_bois", "carte_dechet", "carte_hydro", "carte_metha", "carte_eol")
+      )
     
     mod_entete_server("entete_ui_1", r, obj_page)
     mod_l1_gaz_elec_server("l1_gaz_elec_ui_1", r, obj_page) #1ere ligne
     mod_l2_elec_server("l2_elec_ui_1", r, obj_page) #2e ligne
     
-    mod_l3_obj2_elec_gaz_server("l3_obj2_elec_gaz_ui_1", r, obj_page) #3e ligne, 2e objet
-    
-    
-    locale <- reactiveValues(
-      
-    )
+    mod_carto_part_enr_server("carto_part_enr_ui_1", r, obj_page) #3e ligne, 2e objet
+    mod_carto_mapview_server("carto_mapview_ui_1", r, obj_page) 
     
     observeEvent(
       r$go,{
-        locale
         
       }) 
     
@@ -145,33 +136,7 @@ mod_electr_server <- function(id, r){
   #   ) # end of downloadHandler() function
   #   
   #   
-  #   output$carto_part_enr <- renderGirafe({
-  #     req(input$mon_ter)
-  #     if (maille_terr()=="Epci") {
-  #       carto_maille <- carto_epci
-  #       lim <- filter(carto_epci, EPCI==input$mon_ter) %>% st_bbox()
-  #     }
-  #     else
-  #       if (maille_terr()=="R\u00e9gions")
-  #       {carto_maille <- carto_epci}
-  #     else {
-  #       carto_maille <- filter(carto_epci, EPCI %in% epci_dep()$CodeZone)
-  #     }
-  #     
-  #     c <- ggplot(carto_maille, aes(fill=cat_prct_enrr, tooltip=paste0(htmlEscape(Zone, TRUE), " : ", round(pourcent_enrr, 1), " %"))) +
-  #       geom_sf_interactive() + theme_TEO_carto +
-  #       scale_fill_brewer(palette="PuBuGn") +
-  #       labs(title=element_blank(), x=element_blank(), y=element_blank(), fill=element_blank())
-  #     
-  #     if (maille_terr()=="Epci")
-  #     {c <- c + coord_sf(crs = st_crs(carto_maille), datum = NA, expand = FALSE,
-  #                        xlim = c(lim[[1]]-25000, lim[[3]]+25000),
-  #                        ylim = c(lim[[2]]-20000, lim[[4]]+20000))}
-  #     else {c <- c + coord_sf(crs = st_crs(carto_maille), datum = NA)}
-  #     
-  #     
-  #     girafeTEO(c, fill_tooltip=FALSE)
-  #   })
+
   #   
   #   output$tab_inst <- DT::renderDataTable(
   #     if (isTruthy(input$mon_ter)) {

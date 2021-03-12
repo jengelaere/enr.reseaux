@@ -1,6 +1,6 @@
-#' l3_obj2_elec_gaz UI Function
+#' carto_part_enr UI Function
 #'
-#' @description  2e box de la 3e ligne de la page biogaz et tout elec, comprenant la carto de l'indicateur part conso couverte par la prod ENR
+#' @description  2e box de la 4e ligne de la page biogaz et de la 3e ligne de la page tout elec, comprenant la carto de l'indicateur part conso couverte par la prod ENR
 #'
 #' @param id,input,output,session Internal parameters for {shiny}.
 #'
@@ -8,7 +8,7 @@
 #'
 #' @importFrom shiny NS tagList 
 #' @importFrom ggiraph girafeOutput
-mod_l3_obj2_elec_gaz_ui <- function(id){
+mod_carto_part_enr_ui <- function(id){
   ns <- NS(id)
   tagList(
     
@@ -16,13 +16,13 @@ mod_l3_obj2_elec_gaz_ui <- function(id){
         title = span(paste0("Part de la consommation couverte par les EnR&R en ", enr.reseaux::mil), style="color:white"),
         ggiraph::girafeOutput(ns("carto_part_enr"), width = "100%", height = 380),
         style="color:black",
-        span("Source : Donn\u00e9es Enedis et SDES retravaill\u00e9es par la DREAL", style="font-size: 12px")
+        span(textOutput(ns("caption")), style="font-size: 12px")
     )
  
   )
 }
     
-#' l3_obj2_elec_gaz Server Functions
+#' carto_part_enr Server Functions
 #'
 #' @noRd 
 #' @importFrom dplyr filter
@@ -30,7 +30,7 @@ mod_l3_obj2_elec_gaz_ui <- function(id){
 #' @importFrom ggiraph renderGirafe geom_sf_interactive
 #' @importFrom ggplot2 coord_sf ggplot aes scale_fill_brewer labs element_blank
 #' @importFrom sf st_bbox
-mod_l3_obj2_elec_gaz_server <- function(id, r, obj_page){
+mod_carto_part_enr_server <- function(id, r, obj_page){
   moduleServer( id, function(input, output, session){
     
     ns <- session$ns
@@ -74,12 +74,15 @@ mod_l3_obj2_elec_gaz_server <- function(id, r, obj_page){
       output$carto_part_enr <- ggiraph::renderGirafe({
         enr.reseaux::girafeTEO(locale$c, fill_tooltip = FALSE)
       })
+      
+      output$caption <- renderText(obj_page$caption_pct_enrr)
+      
     
   })
 }
     
 ## To be copied in the UI
-# mod_l3_obj2_elec_gaz_ui("l3_obj2_elec_gaz_ui_1")
+# mod_carto_part_enr_ui("carto_part_enr_ui_1")
     
 ## To be copied in the server
-# mod_l3_obj2_elec_gaz_server("l3_obj2_elec_gaz_ui_1", r, obj_page)
+# mod_carto_part_enr_server("carto_part_enr_ui_1", r, obj_page)

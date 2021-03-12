@@ -28,7 +28,10 @@ Imports:
     shinydashboard,
     tidyr,
     shinydreal,
-    shinycssloaders
+    shinycssloaders,
+    purrr,
+    leaflet,
+    leaflet.extras
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1

@@ -129,6 +129,22 @@ mod_selection_server <- function(id, r){
 
         r$contours <- mapview::mapview(r$cont, legend=FALSE, map.types = c("CartoDB.Positron"), col="gray", alpha = 1,
                              col.regions="papayawhip", alpha.regions=0.15, homebutton=TRUE, label=NULL, layer.name="Contours")
+        # couches composant les cartes d'installations electriques
+        r$carte_PV <- enr.reseaux::couche_fil("pvq", r$mon_ter, 6)
+        r$carte_bois <- enr.reseaux::couche_fil("bois", r$mon_ter, 1)
+        r$carte_dechet <- enr.reseaux::couche_fil("dechet", r$mon_ter, 2)
+        r$carte_hydro <- enr.reseaux::couche_fil("hydro", r$mon_ter, 3)
+        r$carte_metha <- enr.reseaux::couche_fil("metha", r$mon_ter, 4)
+        r$carte_eol <- enr.reseaux::couche_fil("eol", r$mon_ter, 5)
+        # couches composant les cartes d'installations biomethane
+        r$carte_agri <- enr.reseaux::couche_typ_gaz("Agricole", r$mon_ter, 4)
+        r$carte_dechet <- enr.reseaux::couche_typ_gaz("D\u00e9chets m\u00e9nagers", r$mon_ter, 1)
+        r$carte_indust <- enr.reseaux::couche_typ_gaz("Industriel", r$mon_ter, 6)
+        r$carte_isdnd <- enr.reseaux::couche_typ_gaz("ISDND", r$mon_ter, 2)
+        r$carte_step <- enr.reseaux::couche_typ_gaz("Station d\'\u00e9puration", r$mon_ter, 3)
+        r$carte_terri <- enr.reseaux::couche_typ_gaz("Territorial", r$mon_ter, 5)
+        
+        
       })
 
     
