@@ -13,14 +13,14 @@ mod_l2a_fil_elec_ui <- function(id){
     fluidRow(
       box(status="primary",
           solidHeader = TRUE, width=6,
-          title = span("Evolution des puissances installées", style="color:white"),
+          title = span("Evolution des puissances install\u00e9es", style="color:white"),
           girafeOutput(ns("evol_MW"),  width="100%", height=275) %>% withSpinner(type=4),
           style="color:black",
           span(textOutput(ns("leg_evol_1")), style="font-size: 12px")
       ),
       box(status="primary",
           solidHeader = TRUE, width=6,
-          title = span("Evolution du nombre d'installations", style="color:white"),
+          title = span("Evolution du nombre d\'installations", style="color:white"),
           girafeOutput(ns("evol_nb"),  width="100%", height=275),
           style="color:black",
           span(textOutput(ns("leg_evol_2")), style="font-size: 12px")

@@ -36,7 +36,7 @@ mod_l1_fil_elec_server <- function(id, r, obj_page){
         
         locale$box_puiss <- obj_page$df_nb_inst_MWh %>% 
           dplyr::filter(.data$CodeZone==r$mon_ter, .data$annee==obj_page$millesime, 
-                        grepl("puiss", tolower(indicateur)), grepl(obj_page$fil_enedis, .data$Filiere.de.production)) %>%
+                        grepl("puiss", tolower(.data$indicateur)), grepl(obj_page$fil_enedis, .data$Filiere.de.production)) %>%
           dplyr::mutate(valeur=round(.data$valeur/1000, 1)) %>% # passage en MW
           dplyr::pull(.data$valeur) %>% 
           prettyNum(big.mark=" ", decimal.mark=",")%>%
@@ -67,7 +67,7 @@ mod_l1_fil_elec_server <- function(id, r, obj_page){
     output$box_puiss <- renderValueBox({
       valueBox(
         value=locale$box_puiss,
-        subtitle=paste0("raccordés au 31 décembre ", obj_page$millesime), 
+        subtitle=paste0("raccord\u00e9s au 31 d\u00e9cembre ", obj_page$millesime), 
         color="blue", icon = icon(obj_page$icone)
       )
     })
