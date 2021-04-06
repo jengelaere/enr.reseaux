@@ -12,7 +12,7 @@ mod_pv_ui <- function(id){
   tagList(
     
     mod_entete_ui(ns("entete_ui_1")), # en tete
-    
+    mod_l1_fil_elec_ui(ns("l1_fil_elec_ui_1")), # lignes 1, values box
     fluidRow(
       mod_carto_mapview_ui(ns("carto_mapview_ui_1"))
     ),
@@ -32,6 +32,7 @@ mod_pv_server <- function(id, r){
     obj_page <- list(
       titre = "Photovolta\u00efque",
       fil = "pv",
+      fil_enedis = "Photovolta\u00efque",
       icone = "solar-panel",
       domaine = "--",
       millesime = enr.reseaux::mil,
@@ -45,6 +46,8 @@ mod_pv_server <- function(id, r){
     )
     
     mod_entete_server("entete_ui_1", r, obj_page)
+    
+    mod_l1_fil_elec_server("l1_fil_elec_ui_1", r, obj_page)
     
     mod_carto_mapview_server("carto_mapview_ui_1", r, obj_page) 
     
