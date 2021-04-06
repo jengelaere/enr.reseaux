@@ -13,6 +13,26 @@ mod_eol_ui <- function(id){
  
     mod_entete_ui(ns("entete_ui_1")), # en tete
     mod_l1_fil_elec_ui(ns("l1_fil_elec_ui_1")), # lignes 1, values box
+    fluidRow(   #2e ligne
+      column(width=8,
+             mod_l2a_fil_elec_ui(ns("l2a_fil_elec_ui_1")),
+             fluidRow(
+               # #box(status="primary",
+               #     solidHeader = TRUE, width=12,
+               #     plotOutput("legende_evol_PV", inline = F, height="23px", width="100%")
+             )
+      ),
+      column(width=4, fluidRow(
+        box(status="primary",
+            solidHeader = TRUE, width=12,
+            title = span("Productions annuelles", style="color:white"),
+            # girafeOutput("bar_prod_pv", width="100%", height=320),
+            style="color:black",
+            span("GWh - Source : ENEDIS", style="font-size: 12px")
+        )
+      )
+      )
+    ),
     
     fluidRow(
       mod_carto_mapview_ui(ns("carto_mapview_ui_1"))
@@ -54,6 +74,8 @@ mod_eol_server <- function(id, r){
     mod_entete_server("entete_ui_1", r, obj_page)
     
     mod_l1_fil_elec_server("l1_fil_elec_ui_1", r, obj_page)
+    
+    mod_l2a_fil_elec_server("l2a_fil_elec_ui_1", r, obj_page)
    
     mod_carto_mapview_server("carto_mapview_ui_1", r, obj_page) 
     
