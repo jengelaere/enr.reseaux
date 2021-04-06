@@ -22,6 +22,6 @@ tab_inst_elec <- function(ter) {
                   .data$combustible, 'combustible secondaire' = .data$combustiblessecondaires, 'nombre de m\u00e2ts' = .data$nbgroupes,
                   'production annuelle (MWh)' = .data$prod_MWh_an, 'part renouvelable (%)'= .data$part_EnR,
                   'mise en service' = .data$date_inst, -.data$geometry) %>%
-    dplyr::select_if(enr.reseaux:::is_not_empty) %>% 
-    dplyr::select_if(enr.reseaux:::is_pas_zero) 
+    dplyr::select_if(is_not_empty) %>% 
+    dplyr::select_if(is_pas_zero) 
 }
